@@ -67,7 +67,7 @@
       <HintPath>..\..\..\Program Files (x86)\Telerik\UI for ASP.NET MVC Q1 2015\wrappers\aspnetmvc\Binaries\Mvc5\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Kendo.Mvc.resources">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Telerik\UI for ASP.NET MVC Q1 2015\wrappers\aspnetmvc\Binaries\Mvc5\pt-BR\Kendo.Mvc.resources.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Telerik\UI for ASP.NET MVC Q2 2015\wrappers\aspnetmvc\Binaries\Mvc5\pt-BR\Kendo.Mvc.resources.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -3093,6 +3093,7 @@
     <Content Include="Views\Autenticacao\LogIn.cshtml" />
     <Content Include="Views\Autenticacao\UnAuthorize.cshtml" />
     <Content Include="Views\Cadastro\CadastroUsuario.cshtml" />
+    <Content Include="Views\Cadastro\CadastroAcabamento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\App_Data\" />
@@ -3115,19 +3116,19 @@
     </ProjectReference>
     <ProjectReference Include="..\SOP.DAL\SOP.DAL.csproj">
       <Project>{f10abccf-cedd-42ca-90cd-b8165f63b6c9}</Project>
-      <Name>SGR.DAL</Name>
+      <Name>SOP.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\SOP.Domain\SOP.Domain.csproj">
       <Project>{195b0d87-19d3-47e7-9e24-6a7d3d2d7f29}</Project>
-      <Name>SGR.Domain</Name>
+      <Name>SOP.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\SOP.Entidades\SOP.Entidades.csproj">
       <Project>{ade31d4c-9a6f-41ca-8359-5f5470dfff3c}</Project>
-      <Name>SGR.Entidades</Name>
+      <Name>SOP.Entidades</Name>
     </ProjectReference>
     <ProjectReference Include="..\SOP.Recursos\SOP.Recursos.csproj">
       <Project>{b72111b3-1d2b-41a9-a870-87ef1b620835}</Project>
-      <Name>SGR.Recursos</Name>
+      <Name>SOP.Recursos</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,16 @@
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\CORE.Auth.dll.config
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\CORE.Auth.dll
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\CORE.Auth.pdb
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\EntityFramework.dll
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\EntityFramework.SqlServer.dll
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\Kendo.Mvc.resources.dll
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\Microsoft.Owin.dll
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\EntityFramework.xml
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\EntityFramework.SqlServer.xml
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\Microsoft.Owin.xml
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
+C:\WORKPLACEGIT\SOP\CORE.Auth\bin\Debug\Microsoft.Web.Infrastructure.xml
+C:\WORKPLACEGIT\SOP\CORE.Auth\obj\Debug\CORE.Auth.dll
+C:\WORKPLACEGIT\SOP\CORE.Auth\obj\Debug\CORE.Auth.pdb

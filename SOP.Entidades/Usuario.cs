@@ -55,9 +55,23 @@ namespace SOP.Entidades
         }
 
         [HiddenInput(DisplayValue = false)]
+        public virtual int? Cd_Usua_Rgst
+        {
+            get;
+            set;
+        }
+
+        [HiddenInput(DisplayValue = false)]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
         public virtual DateTime? Dt_Incs_Rgst
+        {
+            get;
+            set;
+        }
+
+        [HiddenInput(DisplayValue = false)]
+        public virtual int? Cd_Usua_Altr
         {
             get;
             set;

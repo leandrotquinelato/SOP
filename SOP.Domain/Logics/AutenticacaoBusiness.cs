@@ -10,5 +10,10 @@ namespace SOP.Domain.Logics
         {
             return AutenticacaoDAO.ValidaUsuarioLogin(usuario, senha);
         }
+
+        public int RecuperarCodigoUsuarioLogado(string usuario)
+        {
+            return AutenticacaoDAO.RecuperarCodigoUsuarioLogado(usuario);
+        }
     }
 }

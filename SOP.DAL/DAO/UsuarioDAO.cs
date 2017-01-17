@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Devart.Data.Oracle;
 using System.Data.SqlClient;
+using System.Security.Claims;
 
 namespace SOP.DAL.DAO
 {
@@ -46,75 +47,95 @@ namespace SOP.DAL.DAO
             return listaUsuarios;
         }
 
-//        public static void InserirAlmoxarifadoOrigem(AlmoxarifadoOrigem item)
-//        {          
-//            try
-//            {
-//                String SQL = @"INSERT INTO mrs_mgr_almx_orig (cd_almx_orig, dc_almx_orig, dt_inat) 
-//                                values (:codigo, :descricao, null)";
+        public static void InserirUsuario(Usuario item)
+        {
+            DateTime dataAtual = DateTime.Now;
 
-//                using (OracleConnection conexao = Conexoes.ObterConexaoExclusivaEBS())
-//                {
-//                    OracleCommand comando = new OracleCommand(SQL, conexao);
-//                    comando.Parameters.Add(new OracleParameter("codigo", item.CodigoAlmoxarifadoOrigem));
-//                    comando.Parameters.Add(new OracleParameter("descricao", item.Descricao));
+            try
+            {
+                String SQL = @"INSERT INTO T_CDTR_USUA
+                                 (NM_USUA, LOGIN_USUA, SENHA_USUA,	EMAIL_USUA,	DT_INCS_USUA,
+                                  CD_USUA_INCS_USUA, DT_ALTR_USUA, CD_USUA_ALTR_USUA, DT_INAT_USUA)
+                                VALUES
+                                 (@nome, @login, @senha, @email, @dataInclusao,
+                                  @usuarioInclusao, null, null, null)";
 
-//                    comando.ExecuteNonQuery();
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                throw ex;
-//            }   
-         
-//        }
+                using (SqlConnection conexao = Conexoes.ObterConexaoSql())
+                {
+                    SqlCommand comando = new SqlCommand(SQL, conexao);
+                    comando.Parameters.Add(new SqlParameter("nome", item.Nm_Usua));
+                    comando.Parameters.Add(new SqlParameter("login", item.Login_Usua));
+                    comando.Parameters.Add(new SqlParameter("senha", item.Senha_Usua));
+                    comando.Parameters.Add(new SqlParameter("email", item.Email_Usua));
+                    comando.Parameters.Add(new SqlParameter("dataInclusao", dataAtual));
+                    comando.Parameters.Add(new SqlParameter("usuarioInclusao", item.Cd_Usua_Rgst));
 
-//        public static void RemoveAlmoxarifadoOrigem(AlmoxarifadoOrigem item)
-//        {
-//            try
-//            {
-//                String SQL = @"UPDATE mrs_mgr_almx_orig
-//                                    SET dt_inat = :data
-//                                  WHERE id_almx_orig = :id";
+                    comando.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-//                using (OracleConnection conexao = Conexoes.ObterConexaoExclusivaEBS())
-//                {
-//                    OracleCommand comando = new OracleCommand(SQL, conexao);
-//                    comando.Parameters.Add(new OracleParameter("id", item.IdAlmoxarifadoOrigem));
-//                    comando.Parameters.Add(new OracleParameter("data", DateTime.Now));
-//                    comando.ExecuteNonQuery();
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                throw ex;
-//            }   
+        public static void RemoveUsuario(Usuario item)
+        {
+            try
+            {
+                String SQL = @"UPDATE T_CDTR_USUA
+                                    SET DT_INAT_USUA = @data, 
+                                        CD_USUA_ALTR_USUA = @cdUsua, 
+                                        DT_ALTR_USUA = @data
+                                  WHERE ID_USUA = @id";
 
-//        }
+                using (SqlConnection conexao = Conexoes.ObterConexaoSql())
+                {
+                    SqlCommand comando = new SqlCommand(SQL, conexao);
+                    comando.Parameters.Add(new SqlParameter("id", item.Id_Usua));
+                    comando.Parameters.Add(new SqlParameter("data", DateTime.Now));
+                    comando.Parameters.Add(new SqlParameter("cdUsua", item.Cd_Usua_Altr));
+                    comando.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
-//        public static void AtualizaAlmoxarifadoOrigem(AlmoxarifadoOrigem item)
-//        {
-//            try
-//            {
-//                String SQL = @"UPDATE mrs_mgr_almx_orig
-//                                SET cd_almx_orig = :codigo, dc_almx_orig = :descricao
-//                              WHERE id_almx_orig = :id";
+        }
 
-//                using (OracleConnection conexao = Conexoes.ObterConexaoExclusivaEBS())
-//                {
-//                    OracleCommand comando = new OracleCommand(SQL, conexao);
-//                    comando.Parameters.Add(new OracleParameter("codigo", item.CodigoAlmoxarifadoOrigem));
-//                    comando.Parameters.Add(new OracleParameter("descricao", item.Descricao));
-//                    comando.Parameters.Add(new OracleParameter("id", item.IdAlmoxarifadoOrigem));
-//                    comando.ExecuteNonQuery();
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                throw ex;
-//            }   
-//        }
+        public static void AtualizaUsuario(Usuario item)
+        {
+            try
+            {
+                String SQL = @"UPDATE T_CDTR_USUA
+                                SET NM_USUA = @nome,
+		                            LOGIN_USUA = @login,
+		                            SENHA_USUA = @senha,
+		                            EMAIL_USUA = @email,
+                                    CD_USUA_ALTR_USUA = @cdUsua, 
+                                    DT_ALTR_USUA = @data
+                                WHERE ID_USUA = @id";
 
-
+                using (SqlConnection conexao = Conexoes.ObterConexaoSql())
+                {
+                    SqlCommand comando = new SqlCommand(SQL, conexao);
+                    comando.Parameters.Add(new SqlParameter("nome", item.Nm_Usua));
+                    comando.Parameters.Add(new SqlParameter("login", item.Login_Usua));
+                    comando.Parameters.Add(new SqlParameter("senha", item.Senha_Usua));
+                    comando.Parameters.Add(new SqlParameter("email", item.Email_Usua)); 
+                    comando.Parameters.Add(new SqlParameter("cdUsua", item.Cd_Usua_Altr));
+                    comando.Parameters.Add(new SqlParameter("data", DateTime.Now));
+                    comando.Parameters.Add(new SqlParameter("id", item.Id_Usua));
+                    comando.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
     }
 }

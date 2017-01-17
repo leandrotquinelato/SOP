@@ -9,23 +9,22 @@ namespace SOP.Domain.Logics
 
         public List<Acabamento> ObterAcabamento()
         {
-            //return AcabamentoDAO.ObterUsuarios();
-            return null;
+            return AcabamentoDAO.ObterAcabamento();           
         }
 
         public void InserirAcabamento(Acabamento item)
         {
-            //AcabamentoDAO.InserirAcabamento(item);
+            AcabamentoDAO.InserirAcabamento(item);
         }
 
         public void RemoveAcabamento(Acabamento item)
         {
-            //AcabamentoDAO.RemoveAcabamento(item);
+            AcabamentoDAO.RemoveAcabamento(item);
         }
 
         public void AtualizaAcabamento(Acabamento item)
         {
-            //AcabamentoDAO.AtualizaAcabamento(item);
+            AcabamentoDAO.AtualizaAcabamento(item);
         }
     }
 }

@@ -32,23 +32,28 @@ namespace SOP.Entidades
 
         [Display(Name = "Preço")]
         [Required(ErrorMessage = "O campo Preço é obrigatório.")]
-        public virtual double Nu_Preco
+        public virtual double? Nu_Preco
         {
             get;
             set;
         }
 
         [HiddenInput(DisplayValue = false)]        
-        public virtual string? Cd_Usua_Rgst
+        public virtual int? Cd_Usua_Rgst
         {
             get;
             set;
         }
 
         [HiddenInput(DisplayValue = false)]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
-        public virtual DateTime Dt_Incs_Rgst
+        public virtual DateTime? Dt_Incs_Rgst
+        {
+            get;
+            set;
+        }
+
+        [HiddenInput(DisplayValue = false)]
+        public virtual int? Cd_Usua_Altr
         {
             get;
             set;

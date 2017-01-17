@@ -14,17 +14,17 @@ namespace SOP.Domain.Logics
 
         public void InserirUsuario(Usuario item)
         {
-            //UsuarioDAO.InserirUsuario(item);
+            UsuarioDAO.InserirUsuario(item);
         }
 
         public void RemoveUsuario(Usuario item)
         {
-            //UsuarioDAO.RemoveUsuario(item);
+            UsuarioDAO.RemoveUsuario(item);
         }
 
         public void AtualizaUsuario(Usuario item)
         {
-            //UsuarioDAO.AtualizaUsuario(item);
+            UsuarioDAO.AtualizaUsuario(item);
         }
     }
 }

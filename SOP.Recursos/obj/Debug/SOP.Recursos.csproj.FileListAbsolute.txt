@@ -1,0 +1,6 @@
+C:\WORKPLACEGIT\SOP\SOP.Recursos\bin\Debug\SGR.Recursos.dll
+C:\WORKPLACEGIT\SOP\SOP.Recursos\bin\Debug\SGR.Recursos.pdb
+C:\WORKPLACEGIT\SOP\SOP.Recursos\obj\Debug\SGR.Recursos.Resources.resources
+C:\WORKPLACEGIT\SOP\SOP.Recursos\obj\Debug\SOP.Recursos.csproj.GenerateResource.Cache
+C:\WORKPLACEGIT\SOP\SOP.Recursos\obj\Debug\SGR.Recursos.dll
+C:\WORKPLACEGIT\SOP\SOP.Recursos\obj\Debug\SGR.Recursos.pdb

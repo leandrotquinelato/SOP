@@ -62,16 +62,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conexoes.cs" />
+    <Compile Include="DAO\AcabamentoDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="DAO\AutenticacaoDAO.cs" />
     <Compile Include="Helpers\ConnectionStringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\SOP.Entidades\SOP.Entidades.csproj">
       <Project>{ade31d4c-9a6f-41ca-8359-5f5470dfff3c}</Project>
-      <Name>SGR.Entidades</Name>
+      <Name>SOP.Entidades</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
