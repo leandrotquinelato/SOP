@@ -9,23 +9,22 @@ namespace SOP.Domain.Logics
 
         public List<Cliente> ObterCliente()
         {
-            //return ClienteDAO.ObterCliente();
-            return null;
+            return ClienteDAO.ObterCliente();
         }
 
         public void InserirCliente(Cliente item)
         {
-            //ClienteDAO.InserirCliente(item);
+            ClienteDAO.InserirCliente(item);
         }
 
         public void RemoveCliente(Cliente item)
         {
-            //ClienteDAO.RemoveCliente(item);
+            ClienteDAO.RemoveCliente(item);
         }
 
         public void AtualizaCliente(Cliente item)
         {
-            //ClienteDAO.AtualizaCliente(item);
+            ClienteDAO.AtualizaCliente(item);
         }
     }
 }

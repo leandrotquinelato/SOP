@@ -3094,6 +3094,14 @@
     <Content Include="Views\Autenticacao\UnAuthorize.cshtml" />
     <Content Include="Views\Cadastro\CadastroUsuario.cshtml" />
     <Content Include="Views\Cadastro\CadastroAcabamento.cshtml" />
+    <Content Include="Views\Cadastro\CadastroTipoPedra.cshtml" />
+    <Content Include="Views\Cadastro\CadastroPedra.cshtml" />
+    <Content Include="Views\Cadastro\CadastroCliente.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\Telefone.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Telefone_Celular.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CEP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\App_Data\" />

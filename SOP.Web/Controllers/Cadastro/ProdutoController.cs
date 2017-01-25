@@ -21,7 +21,7 @@ namespace SOP.Web.Controllers.Cadastro
 
         public ActionResult Consultar()
         {
-            return View("~/Views/Cadastro/CadastroProduto.cshtml");
+            return View("~/Views/Cadastro/CadastroPedra.cshtml");
         }
 
         public ActionResult Ler([DataSourceRequest] DataSourceRequest request)

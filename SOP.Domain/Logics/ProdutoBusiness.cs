@@ -9,23 +9,22 @@ namespace SOP.Domain.Logics
 
         public List<Produto> ObterProduto()
         {
-            //return ProdutoDAO.ObterProduto();
-            return null;
+            return ProdutoDAO.ObterProduto();
         }
 
         public void InserirProduto(Produto item)
         {
-            //ProdutoDAO.InserirProduto(item);
+            ProdutoDAO.InserirProduto(item);
         }
 
         public void RemoveProduto(Produto item)
         {
-            //ProdutoDAO.RemoveProduto(item);
+            ProdutoDAO.RemoveProduto(item);
         }
 
         public void AtualizaProduto(Produto item)
         {
-            //ProdutoDAO.AtualizaProduto(item);
+            ProdutoDAO.AtualizaProduto(item);
         }
     }
 }

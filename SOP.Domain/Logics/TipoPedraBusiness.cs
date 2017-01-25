@@ -9,23 +9,22 @@ namespace SOP.Domain.Logics
 
         public List<TipoPedra> ObterTipoPedra()
         {
-            //return TipoPedraDAO.ObterTipoPedra();
-            return null;
+            return TipoPedraDAO.ObterTipoPedra();
         }
 
         public void InserirTipoPedra(TipoPedra item)
         {
-            //TipoPedraDAO.InserirTipoPedra(item);
+            TipoPedraDAO.InserirTipoPedra(item);
         }
 
         public void RemoveTipoPedra(TipoPedra item)
         {
-            //TipoPedraDAO.RemoveTipoPedra(item);
+            TipoPedraDAO.RemoveTipoPedra(item);
         }
 
         public void AtualizaTipoPedra(TipoPedra item)
         {
-            //TipoPedraDAO.AtualizaTipoPedra(item);
+            TipoPedraDAO.AtualizaTipoPedra(item);
         }
     }
 }

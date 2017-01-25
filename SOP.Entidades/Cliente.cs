@@ -29,48 +29,69 @@ namespace SOP.Entidades
             get;
             set;
         }
-
-        public virtual string Tel_Fixo_Cliente
-        {
-            get;
-            set;
-        }
-
-        public virtual string Tel_Cel_Cliente
-        {
-            get;
-            set;
-        }
-
-        public virtual string Nm_Rua
-        {
-            get;
-            set;
-        }
-
-        public virtual string Nu_CEP
-        {
-            get;
-            set;
-        }
-
-        public virtual string Nu_Residencia
-        {
-            get;
-            set;
-        }
-        public virtual string Nu_Complemento
-        {
-            get;
-            set;
-        }
-
+        [Display(Name = "E-Mail")]
         public virtual string Email_Cliente
         {
             get;
             set;
         }
 
+        [Display(Name = "Tel. Celular")]
+        [Required(ErrorMessage = "O campo Tel. Celular é obrigatório.")]
+        [DataType(DataType.PhoneNumber)]
+        [UIHint("Telefone_Celular")]
+        public virtual string Tel_Cel_Cliente
+        {
+            get;
+            set;
+        }
+
+        [Display(Name = "Tel. Fixo")]
+        [DataType(DataType.PhoneNumber)]
+        [UIHint("Telefone")]
+        public virtual string Tel_Fixo_Cliente
+        {
+            get;
+            set;
+        }
+
+
+        [Display(Name = "Nome Rua")]
+        public virtual string Nm_Rua
+        {
+            get;
+            set;
+        }
+
+        [Display(Name = "Nº Residência")]
+        public virtual string Nu_Residencia
+        {
+            get;
+            set;
+        }
+
+        [Display(Name = "Complemento")]
+        public virtual string Nu_Complemento
+        {
+            get;
+            set;
+        }        
+
+        [Display(Name = "Bairro")]
+        public virtual string Nm_Bairro
+        {
+            get;
+            set;
+        }
+
+        [Display(Name = "CEP")]
+        [UIHint("CEP")]
+        public virtual string Nu_CEP
+        {
+            get;
+            set;
+        }
+        
         [HiddenInput(DisplayValue = false)]
         public virtual int? Cd_Usua_Rgst
         {
@@ -80,8 +101,7 @@ namespace SOP.Entidades
 
         [HiddenInput(DisplayValue = false)]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
-        public virtual DateTime Dt_Incs_Rgst
+        public virtual DateTime? Dt_Incs_Rgst
         {
             get;
             set;

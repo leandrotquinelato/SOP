@@ -1,0 +1,60 @@
+﻿@using CORE.Componentes
+@model IEnumerable<SOP.Entidades.Produto>
+
+@{
+    ViewBag.Title = "Parametrização Pedra";
+}
+
+@{
+    ViewBag.Title = "Parametrização Pedra";
+    var breadCrumbs = new List<KeyValuePair<string, string>>();
+    breadCrumbs.Add(new KeyValuePair<string, string>("/Cadastro/Listar", "Cadastro"));
+    breadCrumbs.Add(new KeyValuePair<string, string>("#", ViewBag.Title));
+    ViewBag.Breadcrumbs = breadCrumbs;
+}
+<script src="<%= Url.Content('~/Scripts/jquery.min.js') %>"></script>
+<script src="<%= Url.Content('~/Scripts/portal.js') %>"></script>
+<script src="<%= Url.Content('~/Scripts/kendo.all.min.js') %>"></script>
+<script src="<%= Url.Content('~/Scripts/portal.kendo.grid.js') %>"></script>
+<script src="<%= Url.Content('~/Scripts/kendo.aspnetmvc.min.js') %>"></script>
+<script src="<%= Url.Content('~/Scripts/cultures/kendo.culture.pt-BR.min.js') %>"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.MessageBoxes(TempData["successMessage"], Html.ValidationMessage(""))
+    </div>
+    <div class="col-md-12">
+        @(Html.KendoGrid<SOP.Entidades.Produto>("produtoGrid")
+                .ToolbarLimpar("gridAllFilterReset")
+                .ToolbarExportarExcel("Exportar", "Acabamento.xls")
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.Id_Produto).Visible(false);
+                    columns.Bound(p => p.Nm_Produto).Title("Nome").Width(200);
+                    columns.Bound(p => p.Nu_Preco).Title("Preço").Width(200).Format("{0:c}");
+                })
+                .Editable(ed =>
+                {
+                    ed.Mode(GridEditMode.PopUp)
+                        .Window(w => w.Title("Manutenção de Pedra").Width(450));
+                })
+               .DataSource(dataSource => dataSource
+               .Ajax()
+               .Sort(sort => sort.Add(p => p.Nm_Produto).Ascending())
+               .Events(events => events.Error("error_handler").Sync("sync_handler").RequestEnd("onRequestEnd"))
+               .Model(model =>
+               {
+                   model.Id(p => p.Id_Produto);
+               })
+                    .Create(update => update.Action("Inserir", "Produto"))
+                    .Read(read => read.Action("Ler", "Produto"))
+                    .Update(update => update.Action("Atualizar", "Produto"))
+                    .Destroy(update => update.Action("Apagar", "Produto"))
+               )
+        )
+    </div>
+</div>
+
+<script>
+    kendo.culture("pt-BR");
+</script>
