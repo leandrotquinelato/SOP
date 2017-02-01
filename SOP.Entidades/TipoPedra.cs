@@ -31,7 +31,9 @@ namespace SOP.Entidades
         }
 
         [Display(Name = "Preço")]
+        [DataType(DataType.Currency)]
         [Required(ErrorMessage = "O campo Preço é obrigatório.")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public virtual double? Nu_Preco
         {
             get;

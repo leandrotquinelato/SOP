@@ -72,6 +72,8 @@
   <ItemGroup>
     <Compile Include="Acabamento.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="ItemOrcamento.cs" />
+    <Compile Include="Orcamento.cs" />
     <Compile Include="Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoPedra.cs" />

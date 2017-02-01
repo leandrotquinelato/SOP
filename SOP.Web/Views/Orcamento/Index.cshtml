@@ -1,0 +1,209 @@
+﻿@using CORE.Componentes
+@using CORE.Auth
+@using CORE.Auth.Helpers
+@model SOP.Entidades.Orcamento
+
+<style>
+    div.col-md-3.col-sm-5.col-xs-9 {
+        height: 93px !important;
+    }
+
+    div.col-md-2.col-sm-5.col-xs-9 {
+        height: 80px !important;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Criar Orçamento";
+}
+
+@{
+    ViewBag.Title = "Criar Orçamento";
+    var breadCrumbs = new List<KeyValuePair<string, string>>();
+    breadCrumbs.Add(new KeyValuePair<string, string>("/Relatorio/Listar", "Relatórios"));
+    breadCrumbs.Add(new KeyValuePair<string, string>("#", ViewBag.Title));
+    ViewBag.Breadcrumbs = breadCrumbs;
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.MessageBoxes(TempData["successMessage"], Html.ValidationMessage(""))
+    </div>
+</div>
+@using (Html.BeginForm("Salvar", "DadosComplementares", FormMethod.Post, new { id = "form-submit", role = "form", @class = "form-horizontal" }))
+{
+    
+    <fieldset>
+
+        <div class="row" style="padding-left: 20px; padding-right: 20px;">
+            <div class="portlet">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-reorder"></i>
+                        DADOS
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" id="imagemCollapse"></a>
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="col-md-3 col-sm-5 col-xs-9">
+                                        <label class="btrp-detail-labels">Cliente:</label>
+                                        <div class="btrp-detail-inputs">
+                                            @(Html.Kendo().DropDownListFor(m => m.Cliente)
+                                                .Name("Cliente")
+                                                .OptionLabel("Selecione...")
+                                                .DataTextField("Descricao")
+                                                .DataValueField("Id")
+                                                .HtmlAttributes(new { style = "width:100%;", id = "Cliente" })
+                                                .DataSource(ds =>
+                                                {
+                                                    ds.Read("ObterCliente", "Orcamento");
+                                                }))
+                                            @Html.ValidationMessageFor(m => m.Cliente, null, new { @class = "k-widget k-tooltip k-tooltip-validation k-invalid-msg" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3 col-sm-5 col-xs-9">
+                                        <label class="btrp-detail-labels">Frete:</label>
+                                        <div class="btrp-detail-inputs">
+                                            @(Html.Kendo().NumericTextBoxFor(m => m.Frete)
+                                                  .Name("Frete")
+                                                  .Spinners(false)
+                                                  .HtmlAttributes(new { @Style = "width:100%;", id = "valorFrete" }))
+                                            @Html.ValidationMessageFor(m => m.Frete, null, new { @class = "k-widget k-tooltip k-tooltip-validation k-invalid-msg" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="row" style="padding-left: 20px; padding-right: 20px;">
+            <div class="portlet">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-reorder"></i>
+                        PRODUTOS
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" id="imagemCollapse"></a>
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                @Html.MessageBoxes(TempData["successMessage"], Html.ValidationMessage(""))
+                            </div>
+                            <div class="col-md-12">
+                                @(Html.KendoGrid<SOP.Entidades.ItemOrcamento>("gridItens")
+                                    .ToolbarLimpar("gridAllFilterReset")
+                                    .ToolbarExportarExcel("Exportar", "ItemOrçamento.xls")
+                                    .Columns(columns =>
+                                    {
+                                        columns.Bound(p => p.Id_ItemOrcamento).Visible(false);
+                                        columns.Bound(p => p.Pedra).Title("Pedra").Width(200);
+                                        columns.Bound(p => p.Comprimento).Title("Comprimento").Width(200);
+                                        columns.Bound(p => p.Largura).Title("Largura").Width(200);
+                                        columns.Bound(p => p.Quantidade).Title("Quantidade").Width(200);
+                                        columns.Bound(p => p.Tipo_Pedra).Title("Tipo").Width(200);
+                                        columns.Bound(p => p.Tipo_Acabamento).Title("Acabamento").Width(200);
+                                        columns.Bound(p => p.Cima).Title("Cima").Width(200);
+                                        columns.Bound(p => p.Baixo).Title("Baixo").Width(200);
+                                        columns.Bound(p => p.Direita).Title("Direita").Width(200);
+                                        columns.Bound(p => p.Esquerda).Title("Esquerda").Width(200);
+                                        columns.Bound(p => p.ValorTotal).Title("Valor Total").Width(200);
+                                    })
+                                    .Editable(ed =>
+                                    {
+                                        ed.Mode(GridEditMode.InLine);
+                                    })
+                                   .DataSource(dataSource => dataSource
+                                   .Ajax()
+                                   .Sort(sort => sort.Add(p => p.Pedra).Ascending())
+                                   .Events(events => events.Error("error_handler").Sync("sync_handler").RequestEnd("onRequestEnd"))
+                                   .Model(model =>
+                                   {
+                                       model.Id(p => p.Id_ItemOrcamento);
+                                   })
+                                    .Create(update => update.Action("Inserir", "Orcamento"))
+                                    .Read(read => read.Action("Ler", "Orcamento"))
+                                    .Update(update => update.Action("Atualizar", "Orcamento"))
+                                    .Destroy(update => update.Action("Apagar", "Orcamento"))
+                                   )
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div style="text-align:right">
+
+            <button type="button" class="btn btn-danger" onclick="javascript: window.history.back();"><i class="fa fa-eraser"></i> Cancelar </button>
+
+            <button id="saveButton" type="submit" value="Ok" class="btn btn-success"><i class="fa fa-save"></i> Gravar Dados</button>
+        </div>
+    </fieldset>
+}
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+    })
+
+
+
+    @*function preencheCamposRoda() {
+        var dados = $('input[name=ValoresPadraoRoda]:checked').is(':checked');
+
+        if(dados == true){
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ObterParametrosRodas", "ParametroRodas")",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    $("#numBandagemFinalRodaA").data("kendoNumericTextBox").value(result.dados.BandagemRodaA);
+                    $("#numBandagemFinalRodaB").data("kendoNumericTextBox").value(result.dados.BandagemRodaB);
+                    $("#numFrisoFinalRodaA").data("kendoNumericTextBox").value(result.dados.FrisoRodaA);
+                    $("#numFrisoFinalRodaB").data("kendoNumericTextBox").value(result.dados.FrisoRodaB);
+                },
+                error: function (xhr) {
+                    try {
+                        var json = $.parseJSON(xhr.responseText);
+                        showErrorMessage(json.errorMessage);
+                    } catch (e) {
+                        showErrorMessage('Erro não identificado.');
+                    }
+                }
+            });
+        }
+        else{
+            $("#numBandagemFinalRodaA").data("kendoNumericTextBox").value("");
+            $("#numBandagemFinalRodaB").data("kendoNumericTextBox").value("");
+            $("#numFrisoFinalRodaA").data("kendoNumericTextBox").value("");
+            $("#numFrisoFinalRodaB").data("kendoNumericTextBox").value("");
+        }
+    }*@
+
+
+    
+       
+
+</script>

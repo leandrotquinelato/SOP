@@ -8,39 +8,40 @@ using System.Web.Mvc;
 
 namespace SOP.Entidades
 {
-    public class Acabamento
+    public class Orcamento
     {
-        public Acabamento()
+        public Orcamento()
         {
 
         }
 
         [HiddenInput(DisplayValue = false)]
-        public virtual int Id_Acabamento
+        public virtual int Id_Orcamento
         {
             get;
             set;
         }
 
-        [Display(Name = "Nome")]
-        [Required(ErrorMessage = "O campo Nome é obrigatório.")]
-        public virtual string Nm_Acabamento
+        public virtual string Cliente
+        {
+            get;
+            set;
+        }
+        
+        public virtual double Frete
         {
             get;
             set;
         }
 
-        [Display(Name = "Preço")]
-        [DataType(DataType.Currency)]
-        [Required(ErrorMessage = "O campo Preço é obrigatório.")]
-        [DisplayFormat(DataFormatString = "{0:C}")]
-        public virtual double? Nu_Preco
+        public virtual string ValorTotal
         {
             get;
             set;
         }
 
-        [HiddenInput(DisplayValue = false)]        
+
+        [HiddenInput(DisplayValue = false)]
         public virtual int? Cd_Usua_Rgst
         {
             get;
@@ -48,6 +49,7 @@ namespace SOP.Entidades
         }
 
         [HiddenInput(DisplayValue = false)]
+        [DataType(DataType.Date)]
         public virtual DateTime? Dt_Incs_Rgst
         {
             get;
@@ -69,11 +71,5 @@ namespace SOP.Entidades
             set;
         }
 
-        [HiddenInput(DisplayValue = false)]
-        public virtual DateTime? Dt_Inat_Produto
-        {
-            get;
-            set;
-        }
     }
 }
