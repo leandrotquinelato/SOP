@@ -31,11 +31,11 @@
         @Html.MessageBoxes(TempData["successMessage"], Html.ValidationMessage(""))
     </div>
 </div>
-@using (Html.BeginForm("Salvar", "DadosComplementares", FormMethod.Post, new { id = "form-submit", role = "form", @class = "form-horizontal" }))
+@using (Html.BeginForm("Salvar", "Orcamento", FormMethod.Post, new { id = "form-submit", role = "form", @class = "form-horizontal" }))
 {
-    
     <fieldset>
-
+        
+        @*@Html.HiddenFor(m => m.Id_Orcamento_Capa)*@
         <div class="row" style="padding-left: 20px; padding-right: 20px;">
             <div class="portlet">
                 <div class="portlet-title">
@@ -54,19 +54,31 @@
                                 <div class="col-md-12">
 
                                     <div class="col-md-3 col-sm-5 col-xs-9">
+                                        <label class="btrp-detail-labels">Número Orçamento:</label>
+                                        <div class="btrp-detail-inputs">
+                                            @(Html.Kendo().NumericTextBoxFor(m => m.Id_Orcamento_Capa)
+                                                .Name("Id_Orcamento_Capa")
+                                                .Spinners(false)
+                                                .Format("{0:0}")                                                
+                                                .HtmlAttributes(new { @readonly = "readonly", @Style = "width:100%;", id = "Id_Orcamento_Capa" }))                                                                                        
+                                        </div>                                        
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-5 col-xs-9">
                                         <label class="btrp-detail-labels">Cliente:</label>
                                         <div class="btrp-detail-inputs">
-                                            @(Html.Kendo().DropDownListFor(m => m.Cliente)
-                                                .Name("Cliente")
+                                            @(Html.Kendo().DropDownListFor(m => m.Id_Cliente)
+                                                .Name("Id_Cliente")
                                                 .OptionLabel("Selecione...")
                                                 .DataTextField("Descricao")
                                                 .DataValueField("Id")
-                                                .HtmlAttributes(new { style = "width:100%;", id = "Cliente" })
+                                                .HtmlAttributes(new { style = "width:100%;", id = "Id_Cliente" })
+                                                .Events(ev => ev.Change("gerarIdOrcamento"))                                                
                                                 .DataSource(ds =>
                                                 {
                                                     ds.Read("ObterCliente", "Orcamento");
                                                 }))
-                                            @Html.ValidationMessageFor(m => m.Cliente, null, new { @class = "k-widget k-tooltip k-tooltip-validation k-invalid-msg" })
+                                            @Html.ValidationMessageFor(m => m.Id_Cliente, null, new { @class = "k-widget k-tooltip k-tooltip-validation k-invalid-msg" })
                                         </div>
                                     </div>
 
@@ -77,7 +89,7 @@
                                             @(Html.Kendo().NumericTextBoxFor(m => m.Frete)
                                                   .Name("Frete")
                                                   .Spinners(false)
-                                                  .HtmlAttributes(new { @Style = "width:100%;", id = "valorFrete" }))
+                                                  .HtmlAttributes(new { @Style = "width:100%;", id = "Frete" }))
                                             @Html.ValidationMessageFor(m => m.Frete, null, new { @class = "k-widget k-tooltip k-tooltip-validation k-invalid-msg" })
                                         </div>
                                     </div>
@@ -110,28 +122,33 @@
                                 @(Html.KendoGrid<SOP.Entidades.ItemOrcamento>("gridItens")
                                     .ToolbarLimpar("gridAllFilterReset")
                                     .ToolbarExportarExcel("Exportar", "ItemOrçamento.xls")
+                                    .HtmlAttributes(new { style = "height:350px;" })
                                     .Columns(columns =>
                                     {
                                         columns.Bound(p => p.Id_ItemOrcamento).Visible(false);
-                                        columns.Bound(p => p.Pedra).Title("Pedra").Width(200);
-                                        columns.Bound(p => p.Comprimento).Title("Comprimento").Width(200);
-                                        columns.Bound(p => p.Largura).Title("Largura").Width(200);
-                                        columns.Bound(p => p.Quantidade).Title("Quantidade").Width(200);
-                                        columns.Bound(p => p.Tipo_Pedra).Title("Tipo").Width(200);
-                                        columns.Bound(p => p.Tipo_Acabamento).Title("Acabamento").Width(200);
-                                        columns.Bound(p => p.Cima).Title("Cima").Width(200);
-                                        columns.Bound(p => p.Baixo).Title("Baixo").Width(200);
-                                        columns.Bound(p => p.Direita).Title("Direita").Width(200);
-                                        columns.Bound(p => p.Esquerda).Title("Esquerda").Width(200);
-                                        columns.Bound(p => p.ValorTotal).Title("Valor Total").Width(200);
+                                        columns.Bound(p => p.Cima).Visible(false);
+                                        columns.Bound(p => p.Baixo).Visible(false);
+                                        columns.Bound(p => p.Direita).Visible(false);
+                                        columns.Bound(p => p.Esquerda).Visible(false);
+                                        columns.ForeignKey(c => c.Id_Pedra, (System.Web.Mvc.SelectList)ViewData["ProdutoControle_Data"]).Title("Pedra").Width(200);
+
+                                        columns.Bound(p => p.Comprimento).Title("Comprimento(metro)").Format("{0:0.00}").Width(160);
+                                        columns.Bound(p => p.Largura).Title("Largura(metro)").Format("{0:0.00}").Width(160);
+                                        columns.Bound(p => p.Quantidade).Title("Quantidade").Format("{0:0}").Width(130);
+                                        columns.ForeignKey(c => c.Id_Tipo_Pedra, (System.Web.Mvc.SelectList)ViewData["TipoPedraControle_Data"]).Title("Tipo").Width(140);
+                                        columns.ForeignKey(c => c.Id_Tipo_Acabamento, (System.Web.Mvc.SelectList)ViewData["AcabamentoControle_Data"]).Title("Acabamento").Width(150);
+                                        columns.Bound(p => p.CimaString).Title("Acabamento em cima").Width(180);
+                                        columns.Bound(p => p.BaixoString).Title("Acabamento embaixo").Width(180);
+                                        columns.Bound(p => p.DireitaString).Title("Acabamento na direita").Width(180);
+                                        columns.Bound(p => p.EsquerdaString).Title("Acabamento na esquerda").Width(190);
+                                        columns.Bound(p => p.ValorTotal).Title("Valor Total").Format("{0:0.00}").Width(150);
                                     })
                                     .Editable(ed =>
                                     {
-                                        ed.Mode(GridEditMode.InLine);
+                                        ed.Mode(GridEditMode.PopUp);
                                     })
                                    .DataSource(dataSource => dataSource
                                    .Ajax()
-                                   .Sort(sort => sort.Add(p => p.Pedra).Ascending())
                                    .Events(events => events.Error("error_handler").Sync("sync_handler").RequestEnd("onRequestEnd"))
                                    .Model(model =>
                                    {
@@ -163,10 +180,36 @@
 
 <script>
 
-
     $(document).ready(function () {
-
+       
     })
+
+    function gerarIdOrcamento(e) {
+        var cliente = $("#Id_Cliente").data("kendoDropDownList").value();
+
+        hideErrorMessage();
+        hideSuccessMessage();
+
+        var data = { cliente: cliente };
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GerarIdOrcamento", "Orcamento")",
+            contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(data),
+        success: function (result) {            
+            $("#Id_Orcamento_Capa").data("kendoNumericTextBox").value(result.Id_Orcamento_Capa);            
+        },
+        error: function (xhr) {
+            try {
+                var json = $.parseJSON(xhr.responseText);
+                showErrorMessage(json.errorMessage);
+            } catch (e) {
+                showErrorMessage('Erro não identificado.');
+            }
+        }
+    });
+    }
 
 
 

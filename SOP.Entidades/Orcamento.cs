@@ -15,26 +15,26 @@ namespace SOP.Entidades
 
         }
 
-        [HiddenInput(DisplayValue = false)]
-        public virtual int Id_Orcamento
+        //[HiddenInput(DisplayValue = false)]
+        public int Id_Orcamento_Capa
         {
             get;
             set;
         }
 
-        public virtual string Cliente
+        public int Id_Cliente
         {
             get;
             set;
         }
         
-        public virtual double Frete
+        public double Frete
         {
             get;
             set;
         }
 
-        public virtual string ValorTotal
+        public double ValorTotal
         {
             get;
             set;

@@ -1,4 +1,3 @@
-C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\System.Web.Mvc.xml
 C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\CORE.Componentes.dll
 C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\CORE.Componentes.pdb
 C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\Kendo.Mvc.dll
@@ -11,6 +10,7 @@ C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\System.Web.WebPages.dll
 C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\System.Web.WebPages.Razor.dll
 C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\Kendo.Mvc.xml
 C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\System.Web.Helpers.xml
+C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\System.Web.Mvc.xml
 C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\System.Web.Razor.xml
 C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\System.Web.WebPages.xml
 C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\System.Web.WebPages.Deployment.xml
@@ -33,6 +33,6 @@ C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\tr-TR\Kendo.Mvc.resources.dll
 C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\uk-UA\Kendo.Mvc.resources.dll
 C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\zh-CN\Kendo.Mvc.resources.dll
 C:\WORKPLACEGIT\SOP\CORE.Componentes\bin\Debug\pt-br\System.Web.Mvc.resources.dll
-C:\WORKPLACEGIT\SOP\CORE.Componentes\obj\Debug\CORE.Componentes.csprojResolveAssemblyReference.cache
 C:\WORKPLACEGIT\SOP\CORE.Componentes\obj\Debug\CORE.Componentes.dll
 C:\WORKPLACEGIT\SOP\CORE.Componentes\obj\Debug\CORE.Componentes.pdb
+C:\WORKPLACEGIT\SOP\CORE.Componentes\obj\Debug\CORE.Componentes.csprojResolveAssemblyReference.cache

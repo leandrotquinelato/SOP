@@ -57,6 +57,7 @@
     <Compile Include="Logics\ClienteBusiness.cs" />
     <Compile Include="Logics\ProdutoBusiness.cs" />
     <Compile Include="Logics\TipoPedraBusiness.cs" />
+    <Compile Include="Logics\OrcamentoBusiness.cs" />
     <Compile Include="Logics\UsuarioBusiness.cs" />
     <Compile Include="Logics\AutenticacaoBusiness.cs" />
     <Compile Include="Models\Shared\GenericGridViewModel.cs" />

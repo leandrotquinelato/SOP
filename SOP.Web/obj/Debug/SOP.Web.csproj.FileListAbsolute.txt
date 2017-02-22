@@ -1,3 +1,4 @@
+C:\WORKPLACEGIT\SOP\SOP.Web\obj\Debug\SOP.Web.csprojResolveAssemblyReference.cache
 C:\WORKPLACEGIT\SOP\SOP.Web\bin\SGR.Web.dll.config
 C:\WORKPLACEGIT\SOP\SOP.Web\bin\SGR.Web.dll
 C:\WORKPLACEGIT\SOP\SOP.Web\bin\SGR.Web.pdb
@@ -54,6 +55,5 @@ C:\WORKPLACEGIT\SOP\SOP.Web\bin\System.Web.WebPages.Deployment.xml
 C:\WORKPLACEGIT\SOP\SOP.Web\bin\System.Web.WebPages.Razor.xml
 C:\WORKPLACEGIT\SOP\SOP.Web\bin\EntityFramework.xml
 C:\WORKPLACEGIT\SOP\SOP.Web\bin\pt-br\System.Web.Mvc.resources.dll
-C:\WORKPLACEGIT\SOP\SOP.Web\obj\Debug\SOP.Web.csprojResolveAssemblyReference.cache
 C:\WORKPLACEGIT\SOP\SOP.Web\obj\Debug\SGR.Web.dll
 C:\WORKPLACEGIT\SOP\SOP.Web\obj\Debug\SGR.Web.pdb

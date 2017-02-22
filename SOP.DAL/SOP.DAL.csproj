@@ -66,6 +66,7 @@
     <Compile Include="DAO\ClienteDAO.cs" />
     <Compile Include="DAO\TipoPedraDAO.cs" />
     <Compile Include="DAO\AcabamentoDAO.cs" />
+    <Compile Include="DAO\OrcamentoDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="DAO\AutenticacaoDAO.cs" />
     <Compile Include="Helpers\ConnectionStringHelper.cs" />
