@@ -172,6 +172,7 @@
     <Compile Include="Controllers\Cadastro\ProdutoController.cs" />
     <Compile Include="Controllers\Cadastro\TipoPedraController.cs" />
     <Compile Include="Controllers\Cadastro\UsuarioController.cs" />
+    <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Controllers\OrcamentoController.cs" />
     <Compile Include="Controllers\CustomFilters\JsonExceptionFilterAttribute.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -3102,6 +3103,7 @@
     <Content Include="Views\Shared\EditorTemplates\Telefone_Celular.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CEP.cshtml" />
     <Content Include="Views\Orcamento\Index.cshtml" />
+    <Content Include="Views\Relatorio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\App_Data\" />

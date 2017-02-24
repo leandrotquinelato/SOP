@@ -1,0 +1,192 @@
+﻿@using Kendo.Mvc;
+@using System.Web.Mvc;
+@using CORE.Componentes
+
+@{
+    ViewBag.Title = "Orçamentos Gerados";
+}
+
+@{
+    ViewBag.Title = "Orçamentos Gerados";
+    var breadCrumbs = new List<KeyValuePair<string, string>>();
+    breadCrumbs.Add(new KeyValuePair<string, string>("#", ViewBag.Title));
+    ViewBag.Breadcrumbs = breadCrumbs;
+}
+
+<!-- BEGIN BODY -->
+<div class="row" id="rowError">
+    <div class="col-md-12">
+        <div id="txtError" class="alert alert-danger">
+
+        </div>
+    </div>
+</div>
+
+<div class="row" style="padding-left: 20px; padding-right: 20px;">
+    <div class="portlet">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-reorder"></i>
+                Pesquisa
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" id="imagemCollapse"></a>
+            </div>
+        </div>
+        <div class="portlet-body form" id="camposPesquisa">
+            <form class="form-horizontal" role="form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <label class="btrp-detail-labels">Período de inclusão:</label>
+                                <div class="btrp-detail-inputs">
+                                    @(Html.Kendo().DatePicker().Format("dd/MM/yyyy").Value(DateTime.Now.AddDays(-1)).Name("dtInicio").HtmlAttributes(new { @style = "width:105px;" }))
+                                    &nbsp;
+                                    até
+                                    &nbsp;
+                                    @(Html.Kendo().DatePicker().Format("dd/MM/yyyy").Value(DateTime.Now).Name("dtFim").HtmlAttributes(new { @style = "width:105px;" }))
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-5 col-xs-9">
+                                <label class="btrp-detail-labels">Número Orçamento:</label>
+                                <div class="btrp-detail-inputs">
+                                    @(Html.Kendo().NumericTextBox()
+                                                .Name("numOrcamento")
+                                                .Spinners(false)
+                                                .Format("{0:0}")
+                                                .HtmlAttributes(new { @Style = "width:50%;", id = "numOrcamento" }))
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-5 col-xs-9">
+                                <label class="btrp-detail-labels">Cliente:</label>
+                                <div class="btrp-detail-inputs">
+                                    @(Html.Kendo().DropDownList()
+                                                .Name("idCliente")
+                                                .OptionLabel("Selecione...")
+                                                .DataTextField("Descricao")
+                                                .DataValueField("Id")
+                                                .HtmlAttributes(new { style = "width:100%;", id = "idCliente" })
+                                                .DataSource(ds =>
+                                                {
+                                                    ds.Read("ObterCliente", "Orcamento");
+                                                }))
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions fluid right">
+                    <button type="button" class="btn btn-success" onclick="onclickPesquisa()"><i class="fa fa-search"></i> Pesquisar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="row" style="padding-left: 20px; padding-right: 20px;">
+    <div class=" portlet-body">
+        <div class="table-responsive">
+            @(Html.KendoGrid<SOP.Entidades.Orcamento>("gridOrcamento", true)
+                            .ToolbarLimpar("gridAllFilterReset")
+                            .ToolbarExportarExcel("Exportar", "ItemOrçamento.xls")
+                            .HtmlAttributes(new { style = "height:350px;" })
+                            .AutoBind(false)
+                            .Resizable(r => r.Columns(true))
+                            .Columns(columns =>
+                            {
+                                columns.Template(x => { })
+                                    .ClientTemplate("<a class='k-button k-button-icontext k-grid-details' data-placement='right' data-toggle='tooltip' href='/Trens/DetalharTrem/?id=#= Id_Orcamento_Capa#' title='Editar'><span class='glyphicon glyphicon-pencil'></span</a>" +
+                                                    "<a class='k-button k-button-icontext k-grid-details' data-placement='right' data-toggle='tooltip' href='/Trens/DetalharTrem/?id=#= Id_Orcamento_Capa#' title='Editar'><span class='glyphicon glyphicon-download-alt'></span</a>")
+                                    .Width(40).Visible(true).HtmlAttributes(new { @style = "text-align:center;" });
+                                columns.Bound(p => p.Id_Orcamento_Capa).Title("Nº Orçamento").Width(90).HtmlAttributes(new { @style = "text-align:center;" });
+                                columns.ForeignKey(c => c.Id_Cliente, (System.Web.Mvc.SelectList)ViewData["ClienteControle_Data"]).Title("Cliente").Width(100).HtmlAttributes(new { @style = "text-align:center;" });
+                                columns.Bound(p => p.Frete).Title("Frete").Format("{0:0.00}").Width(80).HtmlAttributes(new { @style = "text-align:center;" });
+                                columns.Bound(p => p.ValorTotal).Title("Valor Total").Format("{0:0.00}").Width(80).HtmlAttributes(new { @style = "text-align:center;" });
+                                columns.Bound(p => p.Dt_Incs_Rgst).Title("Data Inclusão").Format("{0:dd/MM/yyyy}").Width(130).HtmlAttributes(new { @style = "text-align:center;" });
+                            })
+                            .Pageable(i => i.PageSizes(new int[] { 25, 50, 100 }))
+                            .Editable(de => de.Enabled(false))
+                            .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .Events(events => { events.Error("gridErrorHandler"); })
+                            .PageSize(25)
+                            .Read(read =>
+                            {
+                                read.Action("CarregarGridOrcamento", "Relatorio");
+                                read.Data("getDataToSendPesquisa");
+                            })
+                        ))            
+
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" id="hddPageId" value="@ViewBag.PageId" />
+
+<!-- END BODY -->
+<!-- BEGIN SCRIPTS -->
+<script>
+    $(document).ready(function () {
+
+    });
+
+    function getDataToSendPesquisa() {
+        var numOrcamento = $("#numOrcamento");
+        var cliente = $("#idCliente").data("kendoDropDownList");
+        var dataInicio = $("#dtInicio").data("kendoDatePicker");
+        var dataFim = $("#dtFim").data("kendoDatePicker");
+
+        return {
+            "numOrcamento": numOrcamento.val() ? numOrcamento.val() : null,
+            "cliente": cliente.value() ? cliente.value() : null,
+            "dataInicio": dataInicio.value() ? dataInicio.value() : null,
+            "dataFim": dataFim.value() ? dataFim.value() : null,
+        };
+    }
+
+    function onclickPesquisa() {
+        $('#rowError').hide();
+
+        var grid = $("#gridOrcamento").data("kendoGrid");
+        grid.dataSource.page(1);
+
+    }
+
+    function gridErrorHandler(e) {
+        if (e.errors) {
+            var message = "<strong>Errors:</strong> ";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+
+            $('#rowError').show();
+            $('#txtError').html(message);
+            AjustaTelaPesquisaErro($('#camposPesquisa'));
+            ExpandFormPesquisa($('#imagemCollapse'), $('#camposPesquisa'));
+        }
+    }
+
+    $(document).ready(function () {
+        $('#rowError').hide();
+    });
+</script>
+<!-- END SCRIPTS -->
+
+<style>
+    .k-grid-header th.k-header {
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+

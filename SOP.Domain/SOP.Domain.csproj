@@ -55,6 +55,7 @@
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Logics\AcabamentoBusiness.cs" />
     <Compile Include="Logics\ClienteBusiness.cs" />
+    <Compile Include="Logics\RelatorioBusiness.cs" />
     <Compile Include="Logics\ProdutoBusiness.cs" />
     <Compile Include="Logics\TipoPedraBusiness.cs" />
     <Compile Include="Logics\OrcamentoBusiness.cs" />

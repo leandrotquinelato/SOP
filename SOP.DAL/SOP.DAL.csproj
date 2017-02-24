@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conexoes.cs" />
+    <Compile Include="DAO\RelatorioDAO.cs" />
     <Compile Include="DAO\ProdutoDAO.cs" />
     <Compile Include="DAO\ClienteDAO.cs" />
     <Compile Include="DAO\TipoPedraDAO.cs" />

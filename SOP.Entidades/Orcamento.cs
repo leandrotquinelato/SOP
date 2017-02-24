@@ -22,7 +22,7 @@ namespace SOP.Entidades
             set;
         }
 
-        public int Id_Cliente
+        public int? Id_Cliente
         {
             get;
             set;
