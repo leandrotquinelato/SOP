@@ -32,11 +32,6 @@ namespace SOP.Domain.Logics
             OrcamentoDAO.AtualizaItemOrcamento(item);
         }
 
-        public int RecuperarUltimoId()
-        {
-            return OrcamentoDAO.RecuperarUltimoId();
-        }
-
         public double RecuperarValorProduto(ItemOrcamento item)
         {
             return OrcamentoDAO.RecuperarValorProduto(item);
@@ -50,6 +45,20 @@ namespace SOP.Domain.Logics
         public double RecuperarValorAcabamento(ItemOrcamento item)
         {
             return OrcamentoDAO.RecuperarValorAcabamento(item);
+        }
+
+        public Orcamento CarregarOrcamento(string idOrcamento)
+        {
+            return OrcamentoDAO.CarregarOrcamento(idOrcamento);
+        }
+
+        public void AtualizarOrcamento(Orcamento item)
+        {
+            OrcamentoDAO.AtualizarOrcamento(item);
+        }
+        public double RecuperarValorTotalItensOrcamento(int idOrcamento)
+        {
+            return OrcamentoDAO.RecuperarValorTotalItensOrcamento(idOrcamento);
         }
     }
 }

@@ -56,7 +56,7 @@ namespace SOP.Entidades
 
         [Display(Name = "Quantidade")]
         [Required(ErrorMessage = "O campo Quantidade é obrigatório.")]
-        public virtual int Quantidade
+        public virtual double Quantidade
         {
             get;
             set;
@@ -77,10 +77,17 @@ namespace SOP.Entidades
         {
             get;
             set;
+        }               
+
+        [Display(Name = "Acabamento em cima")]        
+        public virtual bool Cima
+        {
+            get;
+            set;
         }
 
-        [Display(Name = "Acabamento na Esquerda")]
-        public virtual bool Esquerda
+        [Display(Name = "Acabamento embaixo")]        
+        public virtual bool Baixo
         {
             get;
             set;
@@ -93,15 +100,8 @@ namespace SOP.Entidades
             set;
         }
 
-        [Display(Name = "Acabamento em cima")]        
-        public virtual bool Cima
-        {
-            get;
-            set;
-        }
-
-        [Display(Name = "Acabamento embaixo")]        
-        public virtual bool Baixo
+        [Display(Name = "Acabamento na Esquerda")]
+        public virtual bool Esquerda
         {
             get;
             set;

@@ -34,7 +34,7 @@ namespace SOP.Entidades
             set;
         }
 
-        public double ValorTotal
+        public double? ValorTotal
         {
             get;
             set;

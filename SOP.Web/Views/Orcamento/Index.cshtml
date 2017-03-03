@@ -34,7 +34,7 @@
 @using (Html.BeginForm("Salvar", "Orcamento", FormMethod.Post, new { id = "form-submit", role = "form", @class = "form-horizontal" }))
 {
     <fieldset>
-        
+
         @*@Html.HiddenFor(m => m.Id_Orcamento_Capa)*@
         <div class="row" style="padding-left: 20px; padding-right: 20px;">
             <div class="portlet">
@@ -51,19 +51,19 @@
                     <form class="form-horizontal" role="form">
                         <div class="form-body">
                             <div class="row">
-                                <div class="col-md-12">
 
-                                    <div class="col-md-3 col-sm-5 col-xs-9">
-                                        <label class="btrp-detail-labels">Número Orçamento:</label>
-                                        <div class="btrp-detail-inputs">
-                                            @(Html.Kendo().NumericTextBoxFor(m => m.Id_Orcamento_Capa)
+                                <div class="col-md-3 col-sm-5 col-xs-9" style="display: none;">
+                                    <label class="btrp-detail-labels">Número Orçamento:</label>
+                                    <div class="btrp-detail-inputs">
+                                        @(Html.Kendo().NumericTextBoxFor(m => m.Id_Orcamento_Capa)
                                                 .Name("Id_Orcamento_Capa")
                                                 .Spinners(false)
-                                                .Format("{0:0}")                                                
-                                                .HtmlAttributes(new { @readonly = "readonly", @Style = "width:100%;", id = "Id_Orcamento_Capa" }))                                                                                        
-                                        </div>                                        
+                                                .Format("{0:0}")
+                                                .HtmlAttributes(new { @readonly = "readonly", @Style = "width:100%;", id = "Id_Orcamento_Capa" }))
                                     </div>
+                                </div>
 
+                                <div class="col-md-12">                                    
                                     <div class="col-md-3 col-sm-5 col-xs-9">
                                         <label class="btrp-detail-labels">Cliente:</label>
                                         <div class="btrp-detail-inputs">
@@ -73,7 +73,7 @@
                                                 .DataTextField("Descricao")
                                                 .DataValueField("Id")
                                                 .HtmlAttributes(new { style = "width:100%;", id = "Id_Cliente" })
-                                                .Events(ev => ev.Change("gerarIdOrcamento"))                                                
+                                                .Events(ev => ev.Change("gerarIdOrcamento"))
                                                 .DataSource(ds =>
                                                 {
                                                     ds.Read("ObterCliente", "Orcamento");
@@ -93,6 +93,16 @@
                                             @Html.ValidationMessageFor(m => m.Frete, null, new { @class = "k-widget k-tooltip k-tooltip-validation k-invalid-msg" })
                                         </div>
                                     </div>
+
+                                    <div class="col-md-3 col-sm-5 col-xs-9">
+                                        <label class="btrp-detail-labels">Valor Total:</label>
+                                        <div class="btrp-detail-inputs">
+                                            @(Html.Kendo().NumericTextBoxFor(m => m.ValorTotal)
+                                                  .Name("ValorTotal")
+                                                  .Spinners(false)
+                                                  .HtmlAttributes(new { @readonly = "readonly", @Style = "width:100%;", id = "ValorTotal" }))                                          
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -101,6 +111,18 @@
 
             </div>
         </div>
+
+        <div style="text-align:right">
+
+            <button type="button" onclick="preencherValorTotal();" value="Ok" class="btn btn-success"><i class="fa fa-calculator"></i> Calcular Valor Total</button>
+
+            <button type="button" class="btn btn-danger" onclick="javascript: window.history.back();"><i class="fa fa-eraser"></i> Cancelar </button>
+
+            <button id="saveButton" type="submit" value="Ok" class="btn btn-success"><i class="fa fa-save"></i> Gravar Dados</button>
+            
+        </div>
+        <br>
+
         <div class="row" style="padding-left: 20px; padding-right: 20px;">
             <div class="portlet">
                 <div class="portlet-title">
@@ -115,9 +137,6 @@
                 <div class="portlet-body form">
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-md-12">
-                                @Html.MessageBoxes(TempData["successMessage"], Html.ValidationMessage(""))
-                            </div>
                             <div class="col-md-12">
                                 @(Html.KendoGrid<SOP.Entidades.ItemOrcamento>("gridItens")
                                     .ToolbarLimpar("gridAllFilterReset")
@@ -165,15 +184,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-
-        <div style="text-align:right">
-
-            <button type="button" class="btn btn-danger" onclick="javascript: window.history.back();"><i class="fa fa-eraser"></i> Cancelar </button>
-
-            <button id="saveButton" type="submit" value="Ok" class="btn btn-success"><i class="fa fa-save"></i> Gravar Dados</button>
-        </div>
+        </div>        
     </fieldset>
 }
 
@@ -181,7 +192,7 @@
 <script>
 
     $(document).ready(function () {
-       
+
     })
 
     function gerarIdOrcamento(e) {
@@ -196,9 +207,38 @@
             type: "POST",
             url: "@Url.Action("GerarIdOrcamento", "Orcamento")",
             contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            success: function (result) {
+                $("#Id_Orcamento_Capa").data("kendoNumericTextBox").value(result.Id_Orcamento_Capa);
+            },
+            error: function (xhr) {
+                try {
+                    var json = $.parseJSON(xhr.responseText);
+                    showErrorMessage(json.errorMessage);
+                } catch (e) {
+                    showErrorMessage('Erro não identificado.');
+                }
+            }
+        });
+    }
+
+    function preencherValorTotal(e) {
+        var id = $("#Id_Orcamento_Capa").data("kendoNumericTextBox").value();
+        var frete = $("#Frete").data("kendoNumericTextBox").value();
+
+        hideErrorMessage();
+        hideSuccessMessage();
+
+        var data = { id: id, frete: frete };
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GerarValorTotal", "Orcamento")",
+            contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success: function (result) {            
-            $("#Id_Orcamento_Capa").data("kendoNumericTextBox").value(result.Id_Orcamento_Capa);            
+            $("#ValorTotal").data("kendoNumericTextBox").value(result.ValorTotal);
+            $("#Id_Orcamento_Capa").data("kendoNumericTextBox").value(result.Id_Orcamento_Capa);
         },
         error: function (xhr) {
             try {
@@ -211,42 +251,6 @@
     });
     }
 
-
-
-    @*function preencheCamposRoda() {
-        var dados = $('input[name=ValoresPadraoRoda]:checked').is(':checked');
-
-        if(dados == true){
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("ObterParametrosRodas", "ParametroRodas")",
-                contentType: "application/json; charset=utf-8",
-                success: function (result) {
-                    $("#numBandagemFinalRodaA").data("kendoNumericTextBox").value(result.dados.BandagemRodaA);
-                    $("#numBandagemFinalRodaB").data("kendoNumericTextBox").value(result.dados.BandagemRodaB);
-                    $("#numFrisoFinalRodaA").data("kendoNumericTextBox").value(result.dados.FrisoRodaA);
-                    $("#numFrisoFinalRodaB").data("kendoNumericTextBox").value(result.dados.FrisoRodaB);
-                },
-                error: function (xhr) {
-                    try {
-                        var json = $.parseJSON(xhr.responseText);
-                        showErrorMessage(json.errorMessage);
-                    } catch (e) {
-                        showErrorMessage('Erro não identificado.');
-                    }
-                }
-            });
-        }
-        else{
-            $("#numBandagemFinalRodaA").data("kendoNumericTextBox").value("");
-            $("#numBandagemFinalRodaB").data("kendoNumericTextBox").value("");
-            $("#numFrisoFinalRodaA").data("kendoNumericTextBox").value("");
-            $("#numFrisoFinalRodaB").data("kendoNumericTextBox").value("");
-        }
-    }*@
-
-
     
-       
 
 </script>

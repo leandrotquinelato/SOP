@@ -239,7 +239,7 @@ namespace SOP.DAL.DAO
                 using (SqlConnection conexao = Conexoes.ObterConexaoSql())
                 {
                     SqlCommand comando = new SqlCommand(SQL, conexao);
-                    if (item.Id_Cliente == 0)
+                    if (item.Id_Cliente == 0 || item.Id_Cliente == null)
                         comando.Parameters.Add(new SqlParameter("idCliente", DBNull.Value));
                     else
                         comando.Parameters.Add(new SqlParameter("idCliente", item.Id_Cliente));
@@ -263,7 +263,7 @@ namespace SOP.DAL.DAO
             }
         }
 
-        public static void AtualizaOrcamento(Orcamento item)
+        public static void AtualizarOrcamento(Orcamento item)
         {
             try
             {
@@ -278,7 +278,11 @@ namespace SOP.DAL.DAO
                 using (SqlConnection conexao = Conexoes.ObterConexaoSql())
                 {
                     SqlCommand comando = new SqlCommand(SQL, conexao);
-                    comando.Parameters.Add(new SqlParameter("idCliente", item.Id_Cliente));
+                    if (item.Id_Cliente == 0 || item.Id_Cliente == null)
+                        comando.Parameters.Add(new SqlParameter("idCliente", DBNull.Value));
+                    else
+                        comando.Parameters.Add(new SqlParameter("idCliente", item.Id_Cliente));
+
                     comando.Parameters.Add(new SqlParameter("frete", item.Frete));
                     comando.Parameters.Add(new SqlParameter("valorTotal", item.ValorTotal));
                     comando.Parameters.Add(new SqlParameter("cdUsua", item.Cd_Usua_Altr));
@@ -397,6 +401,70 @@ namespace SOP.DAL.DAO
                         while (reader.Read())
                         {
                             retorno = reader.GetDouble(reader.GetOrdinal("PRECO_ACBMT"));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return retorno;
+        }
+
+        public static Orcamento CarregarOrcamento(string idOrcamento)
+        {
+            Orcamento orcamento = new Orcamento();
+
+            try
+            {
+                String SQL = @"SELECT O.ID_ORCMT, O.ID_CLIE, O.PRECO_FRETE, O.VL_TT, O.DT_INCS_ORCMT
+                                    FROM T_ORCMT O
+                                WHERE O.ID_ORCMT = " + idOrcamento;
+
+                using (SqlConnection conexao = Conexoes.ObterConexaoSql())
+                {
+                    SqlCommand comando = new SqlCommand(SQL, conexao);
+                    using (SqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!reader.IsDBNull(reader.GetOrdinal("ID_ORCMT"))) orcamento.Id_Orcamento_Capa = reader.GetInt32(reader.GetOrdinal("ID_ORCMT"));
+                            if (!reader.IsDBNull(reader.GetOrdinal("ID_CLIE"))) orcamento.Id_Cliente = reader.GetInt32(reader.GetOrdinal("ID_CLIE"));
+                            if (!reader.IsDBNull(reader.GetOrdinal("PRECO_FRETE"))) orcamento.Frete = reader.GetDouble(reader.GetOrdinal("PRECO_FRETE"));
+                            if (!reader.IsDBNull(reader.GetOrdinal("VL_TT"))) orcamento.ValorTotal = reader.GetDouble(reader.GetOrdinal("VL_TT"));
+                            if (!reader.IsDBNull(reader.GetOrdinal("DT_INCS_ORCMT"))) orcamento.Dt_Incs_Rgst = reader.GetDateTime(reader.GetOrdinal("DT_INCS_ORCMT"));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return orcamento;
+        }
+
+        public static double RecuperarValorTotalItensOrcamento(int idOrcamento)
+        {
+            double retorno = 0;
+
+            try
+            {
+                String SQL = @"SELECT SUM(VL_TT) AS TOTAL				                            
+                                    FROM T_ITEM_ORCMT
+                                  WHERE ID_ORCMT = " + idOrcamento;
+
+                using (SqlConnection conexao = Conexoes.ObterConexaoSql())
+                {
+                    SqlCommand comando = new SqlCommand(SQL, conexao);
+                    using (SqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            retorno = reader.GetDouble(reader.GetOrdinal("TOTAL"));
                         }
                     }
                 }

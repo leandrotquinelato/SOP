@@ -57,3 +57,4 @@ C:\WORKPLACEGIT\SOP\SOP.Web\bin\EntityFramework.xml
 C:\WORKPLACEGIT\SOP\SOP.Web\bin\pt-br\System.Web.Mvc.resources.dll
 C:\WORKPLACEGIT\SOP\SOP.Web\obj\Debug\SGR.Web.dll
 C:\WORKPLACEGIT\SOP\SOP.Web\obj\Debug\SGR.Web.pdb
+C:\WORKPLACEGIT\SOP\SOP.Web\bin\pt-br\Kendo.Mvc.resources.dll

@@ -30,6 +30,8 @@ namespace SOP.DAL.DAO
                     SQL += " AND O.ID_CLIE = " + cliente;
                 }
 
+                SQL += " ORDER BY O.ID_ORCMT DESC";
+
                 using (SqlConnection conexao = Conexoes.ObterConexaoSql())
                 {
                     SqlCommand comando = new SqlCommand(SQL, conexao);

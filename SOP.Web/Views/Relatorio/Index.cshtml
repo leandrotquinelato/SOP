@@ -100,8 +100,8 @@
                             .Columns(columns =>
                             {
                                 columns.Template(x => { })
-                                    .ClientTemplate("<a class='k-button k-button-icontext k-grid-details' data-placement='right' data-toggle='tooltip' href='/Trens/DetalharTrem/?id=#= Id_Orcamento_Capa#' title='Editar'><span class='glyphicon glyphicon-pencil'></span</a>" +
-                                                    "<a class='k-button k-button-icontext k-grid-details' data-placement='right' data-toggle='tooltip' href='/Trens/DetalharTrem/?id=#= Id_Orcamento_Capa#' title='Editar'><span class='glyphicon glyphicon-download-alt'></span</a>")
+                                    .ClientTemplate("<a class='k-button k-button-icontext k-grid-details' data-placement='right' data-toggle='tooltip' href='/Orcamento/EditarOrcamento/?id=#= Id_Orcamento_Capa#' title='Editar'><span class='glyphicon glyphicon-pencil'></span</a>" +
+                                                    "<a class='k-button k-button-icontext k-grid-add' data-placement='right' data-toggle='tooltip' href='/Trens/DetalharTrem/?id=#= Id_Orcamento_Capa#' title='Gerar PDF'><span class='glyphicon glyphicon-download-alt'></span</a>")
                                     .Width(40).Visible(true).HtmlAttributes(new { @style = "text-align:center;" });
                                 columns.Bound(p => p.Id_Orcamento_Capa).Title("Nº Orçamento").Width(90).HtmlAttributes(new { @style = "text-align:center;" });
                                 columns.ForeignKey(c => c.Id_Cliente, (System.Web.Mvc.SelectList)ViewData["ClienteControle_Data"]).Title("Cliente").Width(100).HtmlAttributes(new { @style = "text-align:center;" });
