@@ -239,15 +239,21 @@ namespace SOP.DAL.DAO
                 using (SqlConnection conexao = Conexoes.ObterConexaoSql())
                 {
                     SqlCommand comando = new SqlCommand(SQL, conexao);
+
                     if (item.Id_Cliente == 0 || item.Id_Cliente == null)
                         comando.Parameters.Add(new SqlParameter("idCliente", DBNull.Value));
                     else
                         comando.Parameters.Add(new SqlParameter("idCliente", item.Id_Cliente));
+
                     comando.Parameters.Add(new SqlParameter("frete", item.Frete));
+
                     if (item.ValorTotal != null)
                         comando.Parameters.Add(new SqlParameter("valorTotal", item.ValorTotal));
                     else
-                        comando.Parameters.Add(new SqlParameter("valorTotal", 0.0));
+                    {
+                        item.ValorTotal = 0.0;
+                        comando.Parameters.Add(new SqlParameter("valorTotal", item.ValorTotal));
+                    }                        
 
                     comando.Parameters.Add(new SqlParameter("dataInclusao", dataAtual));
                     comando.Parameters.Add(new SqlParameter("usuarioInclusao", item.Cd_Usua_Rgst));

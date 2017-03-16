@@ -224,7 +224,7 @@ namespace SOP.Web.Controllers.Cadastro
             }
             else
             {
-                throw new Exception("Não é possível calcular o valor total itens no orçamento.");
+                throw new Exception("Não é possível calcular o valor total sem itens no orçamento.");
             }
         }
 
